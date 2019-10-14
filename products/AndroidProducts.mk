@@ -26,6 +26,7 @@ PRODUCT_MAKEFILES += \
     $(LOCAL_DIR)/oneplus7pro/pa_oneplus7pro.mk \
     $(LOCAL_DIR)/oneplus7tpro/pa_oneplus7tpro.mk \
     $(LOCAL_DIR)/polaris/pa_polaris.mk \
+    $(LOCAL_DIR)/rolex/pa_rolex.mk \
     $(LOCAL_DIR)/sagit/pa_sagit.mk \
 
 # SONY OpenDevices
