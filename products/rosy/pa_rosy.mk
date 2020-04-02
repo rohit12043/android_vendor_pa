@@ -1,4 +1,5 @@
-# Copyright (C) 2019 Paranoid Android
+#
+# Copyright (C) 2020 Paranoid Android
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,37 +12,43 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 # Check for target product
-ifeq (pa_dipper,$(TARGET_PRODUCT))
+ifeq (pa_rosy,$(TARGET_PRODUCT))
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_n_mr1.mk)
 
-# Include Paranoid Android common configuration
-TARGET_BOOT_ANIMATION_RES := 1080
+# Inherit from rosy device
+$(call inherit-product, device/xiaomi/rosy/device.mk)
 
-# Inherit device configuration
-$(call inherit-product, device/xiaomi/dipper/device.mk)
-
-# Inherit common PA configuration
+# Inherit some common Paranoid Android stuff
 $(call inherit-product, vendor/pa/config/common_full_phone.mk)
 
-# Override build properties
-PRODUCT_NAME := pa_dipper
-PRODUCT_DEVICE := dipper
+# Device identifier. This must come after all inclusions
+PRODUCT_NAME := pa_rosy
+PRODUCT_DEVICE := rosy
 PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := MI 8
+PRODUCT_MODEL := Redmi 5
 PRODUCT_MANUFACTURER := Xiaomi
 
-PRODUCT_GMS_CLIENTID_BASE := android-xiaomi-rev1
+# Bootanimation
+TARGET_BOOT_ANIMATION_RES := 720
 
-BUILD_FINGERPRINT := "Xiaomi/dipper/dipper:8.1.0/OPM1.171019.011/V9.5.11.0.OEACNFA:user/release-keys"
+PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
+TARGET_VENDOR_PRODUCT_NAME := rosy
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="dipper-user 8.1.0 OPM1.171019.011 V9.5.11.0.OEACNFA release-keys" \
-    PRODUCT_NAME="dipper" \
-    TARGET_DEVICE="dipper"
+    PRIVATE_BUILD_DESC="rosy-user 7.1.2 N2G47H V9.2.3.0.NDAMIEK release-keys"
+
+# Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
+BUILD_FINGERPRINT := "Xiaomi/rosy/rosy:7.1.2/N2G47H/V9.2.3.0.NDAMIEK:user/release-keys"
+
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.build.fingerprint=$(BUILD_FINGERPRINT)
 
 endif

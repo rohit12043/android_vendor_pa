@@ -32,7 +32,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.storage_manager.enabled=true \
     ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html \
     ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html \
-    ro.boot.vendor.overlay.theme=com.android.internal.systemui.navbar.gestural
+    ro.boot.vendor.overlay.theme=com.android.internal.systemui.navbar.gestural \
+    persist.sys.fflag.override.settings_network_and_internet_v2=true
 
 ifeq ($(PRODUCT_GMS_CLIENTID_BASE),)
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
@@ -123,6 +124,11 @@ include vendor/pa/config/packages.mk
 
 # PA version
 include vendor/pa/config/version.mk
+
+# QCOM
+include vendor/pa/config/qcom_utils.mk
+# Include Common Qualcomm Device Tree on Qualcomm Boards
+$(call inherit-product-if-exists, device/qcom/common/common.mk)
 
 # Sdclang
 ifneq ($(HOST_OS),linux)
